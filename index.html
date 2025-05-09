@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESP32 Firebase LED Control</title>
+  </head>
+  <body>
+    <h2>ESP32 LED Control Panel</h2>
+    <button onclick="controlLED(true)">Turn ON</button>
+    <button onclick="controlLED(false)">Turn OFF</button>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+      import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "Your_Firebase_API_Key",
+        authDomain: "your-project-id.firebaseapp.com",
+        databaseURL: "https://your-project-id.firebaseio.com",
+        projectId: "your-project-id"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      function controlLED(state) {
+        set(ref(db, 'control/led'), state);
+      }
+    </script>
+  </body>
+</html>
